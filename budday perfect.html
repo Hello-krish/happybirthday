@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happiest Birthday Vidushi 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      transition: background 1s ease;
+    }
+
+    .btn {
+      padding: 20px 40px;
+      font-size: 24px;
+      background: #ff5c8a;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+      margin-top: 20vh;
+      z-index: 2;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    #countdown {
+      font-size: clamp(50px, 15vw, 100px);
+      margin-top: 50px;
+      animation: pop 1s ease-in-out;
+      color: #a000a0;
+      display: none;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.2); opacity: 0; }
+      50% { transform: scale(1.5); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #cakeSection {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .cake {
+      position: relative;
+      width: 200px;
+      height: 150px;
+      background: #ffb3c6;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      margin: 20px auto;
+    }
+
+    .candle {
+      position: absolute;
+      width: 10px;
+      height: 40px;
+      background: #ff9e9e;
+      top: -40px;
+      border-radius: 2px;
+    }
+
+    .flame {
+      position: absolute;
+      width: 10px;
+      height: 20px;
+      top: -20px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background: radial-gradient(ellipse at center, #fff176 0%, #ffa000 70%);
+      border-radius: 50%;
+      animation: flicker 0.15s infinite;
+    }
+
+    .candle:nth-child(1) { left: 40px; }
+    .candle:nth-child(2) { left: 95px; }
+    .candle:nth-child(3) { left: 150px; }
+
+    @keyframes flicker {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    .cake-text {
+      font-size: 24px;
+      color: #ff2e63;
+      font-weight: bold;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkle 1s ease-in-out infinite;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes sparkle {
+      0% { transform: scale(0.5) translateY(0); opacity: 1; }
+      50% { transform: scale(1.5) translateY(-20px); opacity: 0.5; }
+      100% { transform: scale(0.5) translateY(0); opacity: 0; }
+    }
+
+    @keyframes cutCake {
+      0% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.03) rotate(1deg); }
+      50% { transform: scale(0.98) rotate(-1deg); }
+      75% { transform: scale(1.02) rotate(1deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes sliceLine {
+      0% { height: 0; opacity: 0; }
+      100% { height: 150px; opacity: 1; }
+    }
+
+    .slice-line {
+      position: absolute;
+      width: 4px;
+      height: 0;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: red;
+      opacity: 0;
+      animation: sliceLine 1s forwards ease-in-out;
+      z-index: 3;
+    }
+
+    #messageSection {
+      display: none;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 50px;
+      padding: 40px;
+      animation: fadeIn 2s ease-in-out;
+      max-width: 900px;
+    }
+
+    #messageSection img {
+      width: 280px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    #messageSection .text {
+      color: #000;
+      font-size: 18px;
+      line-height: 1.6;
+      max-width: 500px;
+      text-align: left;
+      background: rgba(255,255,255,0.85);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    /* Balloon Styles */
+    .balloon {
+      position: absolute;
+      width: 40px;
+      height: 60px;
+      background: radial-gradient(circle at 30% 30%, #ff8a80, #ff5252);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #444;
+      transform: translateX(-50%);
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) translateX(30px);
+        opacity: 0;
+      }
+    }
+
+    #reactionSection {
+      margin: 40px auto;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .reaction-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .reaction-btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 20px;
+      border: none;
+      background: #ffc1e3;
+      color: #333;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .reaction-btn:hover {
+      background: #ff9ac4;
+      transform: scale(1.05);
+    }
+
+    .popup-box {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      color: #000;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 15px 25px;
+      border-radius: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 9999;
+    }
+
+    .popup-box.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-10px);
+    }
+  </style>
+</head>
+<body>
+  <button id="lightsButton" class="btn" aria-label="Turn lights on">Lights On 💡</button>
+  <button id="startButton" class="btn" style="display:none;" aria-label="Start countdown">Ready?</button>
+  <div id="countdown">3</div>
+
+  <div id="cakeSection">
+    <div class="cake-text">Let’s cut the cake 🎂</div>
+    <div class="cake">
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="slice-line"></div>
+    </div>
+  </div>
+
+  <div id="messageSection">
+ <img src="https://i.postimg.cc/XqpKWCvR/bhai-jpg.jpg" alt="You and Vidushi" />
+
+
+
+    <div class="text">
+      <p><strong>Happy birthday</strong> to that one person who always manages to make me smile, no matter what's going on.</p>
+      <p>You have this amazing way of turning even the smallest moments into something special just by being around. Honestly, I don't say it enough, but I really appreciate how you bring so much happiness and positivity into my life.</p>
+      <p>On your birthday, I just want you to know how much you mean to me and how grateful I am to have you. I hope today is filled with all the things you love — good food, great company, and lots of laughter.</p>
+      <p>You deserve to be celebrated every single day, but especially today.</p>
+      <p>Here's to another year of making memories, chasing dreams, and just being your awesome self. Enjoy your day to the fullest — I'm rooting for you always!</p>
+    </div>
+  </div>
+
+  <div id="reactionSection">
+    <h2 style="color: #fff; margin-bottom: 15px;">How did this make you feel? 💭</h2>
+    <div class="reaction-container">
+      <button class="reaction-btn" data-msg="I'm Glad">Love it ❤️</button>
+      <button class="reaction-btn" data-msg="Koi na rona nahi hai 😭, be a sher man you awesome🤙">Made me emotional 😭</button>
+      <button class="reaction-btn" data-msg="Aise hi haste rahi muskarate raho❤️">Made me smile 😊</button>
+    </div>
+  </div>
+
+  <div id="reactionPopup" class="popup-box"></div>
+
+  <audio id="bgMusic" src="https://media.vocaroo.com/mp3/12VjPg1eREFV" preload="auto"></audio>
+  <audio id="cutSound" src="https://www.soundjay.com/human/sounds/knife-slice-1.mp3" preload="auto"></audio>
+<script>
+  // Load confetti library
+  (function() {
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+    script.onload = () => console.log("Confetti script loaded successfully");
+    script.onerror = () => console.warn("Confetti script failed to load");
+    document.head.appendChild(script);
+  })();
+
+  // LIGHTS ON
+  document.getElementById('lightsButton').addEventListener('click', () => {
+    document.body.style.background = "linear-gradient(to top right, #ffd6ff, #e7c6ff)";
+    document.getElementById('lightsButton').style.display = 'none';
+    document.getElementById('startButton').style.display = 'inline-block';
+  });
+
+  // START COUNTDOWN
+  document.getElementById('startButton').addEventListener('click', () => {
+    document.getElementById('startButton').style.display = 'none';
+    document.getElementById('bgMusic').play().catch((e) => console.log('Audio failed:', e));
+    startCountdown();
+  });
+
+  function startCountdown() {
+    const countdown = document.getElementById('countdown');
+    countdown.style.display = 'block';
+    let count = 3;
+
+    const interval = setInterval(() => {
+      countdown.textContent = count;
+      countdown.style.animation = 'none';
+      void countdown.offsetWidth;
+      countdown.style.animation = 'pop 1s ease-in-out';
+      count--;
+
+      if (count < 0) {
+        clearInterval(interval);
+        countdown.style.display = 'none';
+        speakBirthday();
+      }
+    }, 1000);
+  }
+
+  // SPEAK WISH
+  function speakBirthday() {
+    const msg = new SpeechSynthesisUtterance("Vidushi, Happy Birthday");
+    msg.lang = 'en-US';
+    msg.pitch = 1;
+    msg.rate = 0.95;
+    speechSynthesis.speak(msg);
+    setTimeout(showCake, 2500);
+  }
+
+  // SHOW CAKE + CUT
+  function showCake() {
+    const cakeSection = document.getElementById('cakeSection');
+    const cake = document.querySelector('.cake');
+    const sliceLine = cake.querySelector('.slice-line');
+
+    cakeSection.style.display = 'flex';
+    cake.style.animation = "cutCake 1s ease-in-out";
+    sliceLine.style.animation = "sliceLine 1s forwards ease-in-out";
+
+    document.getElementById('cutSound').play();
+    addSparkles();
+    addBalloons();
+
+    setTimeout(() => {
+      blowOutCandles();
+      if (typeof confetti === 'function') {
+        launchConfetti();
+      }
+      showMessage();
+    }, 2500);
+  }
+
+  // CANDLE OUT
+  function blowOutCandles() {
+    const flames = document.querySelectorAll(".flame");
+    flames.forEach(f => f.style.display = "none");
+  }
+
+  // SPARKLES
+  function addSparkles() {
+    for (let i = 0; i < 15; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      sparkle.style.top = Math.random() * 100 + 'vh';
+      sparkle.style.animationDuration = (1 + Math.random()) + 's';
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 3000);
+    }
+  }
+
+  // BALLOONS
+  function addBalloons() {
+    for (let i = 0; i < 15; i++) {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.animationDelay = (Math.random() * 2) + 's';
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 8000);
+    }
+  }
+
+  // CONFETTI
+  function launchConfetti() {
+    confetti({
+      particleCount: 150,
+      spread: 100,
+      origin: { y: 0.6 }
+    });
+  }
+
+  // SHOW MESSAGE
+  function showMessage() {
+    document.getElementById('messageSection').style.display = 'flex';
+    document.getElementById('reactionSection').style.display = 'flex';
+  }
+
+  // REACTION POPUP
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.reaction-btn');
+    if (btn) {
+      const msg = btn.getAttribute('data-msg');
+      const popup = document.getElementById('reactionPopup');
+      popup.textContent = msg;
+      popup.classList.add('show');
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, 5000);
+    }
+  });
+</script>
+</body>
+</html>
